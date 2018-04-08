@@ -1,4 +1,5 @@
 #include <Esplora.h>
+#include "definitions.h"
 
 void setup() {
   // put your setup code here, to run once:
