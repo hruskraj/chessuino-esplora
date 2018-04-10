@@ -3,12 +3,13 @@
 #include <SPI.h>
 #include "definitions.h"
 
-void setup() {
-  // put your setup code here, to run once:
-
+void setup(){
+  EsploraTFT.begin();
+  EsploraTFT.background(0, 0, 0);
+  drawBoard();
+  drawEveryPiece();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-
+void loop(){
+  
 }
