@@ -35,15 +35,15 @@ const Color darkColor = Color(224, 155, 6);
  * States of the program.
  */
 enum states{
-  MENU_NEW_GAME, ///< Menu selection of new game.
-  MENU_CONTROLS, ///< Menu selection of controls.
-  MENU_ABOUT, ///< Menu selection of about.
-  MENU_VS_PLAYER, ///< Menu selection of vs player.
-  MENU_VS_AI_EASY, ///< Menu selection of vs easy AI.
-  MENU_VS_AI_HARD, ///< Menu selection of vs hard AI.
-  CONTROLS, ///< Controls.
-  ABOUT, ///< About.
-  GAME ///< Game.
+  MENU_NEW_GAME, ///< Menu selection of new game
+  MENU_CONTROLS, ///< Menu selection of controls
+  MENU_ABOUT, ///< Menu selection of about
+  MENU_VS_PLAYER, ///< Menu selection of vs player
+  MENU_VS_AI_EASY, ///< Menu selection of vs easy AI
+  MENU_VS_AI_HARD, ///< Menu selection of vs hard AI
+  CONTROLS, ///< Controls
+  ABOUT, ///< About
+  GAME ///< Game
 };
 
 /**
