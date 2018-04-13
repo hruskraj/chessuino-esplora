@@ -37,6 +37,7 @@ const TileColor darkColor = TileColor(224, 155, 6);
  * Every chess piece is represented by RGB value. All three parts
  * of the RGB are the same. 202 is used to indicate that there is no color.
  * <table>
+ *   <tr> <th>index</th> <th>piece</th> </tr>
  *   <tr> <td>0</td> <td>black rook</td> </tr>
  *   <tr> <td>1</td> <td>black knight</td> </tr>
  *   <tr> <td>2</td> <td>black bishop</td> </tr>

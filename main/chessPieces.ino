@@ -13,6 +13,7 @@
  * @param j position on y axis
  * @param k position on x axis
  * @return int representing value for RGB
+ * @sa chessPieces
  */
 byte getTableEntry(byte i, byte j, byte k){
   return pgm_read_word(&chessPieces[i][j][k]);
@@ -33,6 +34,7 @@ const TileColor & getTileColor(int r, int c){
  * @param r row
  * @param c column
  * @param p piece
+ * @sa chessPieces
  */
 void drawPiece(byte r, byte c, byte p){
   for(int i = 0; i < 16; ++i){
@@ -47,6 +49,7 @@ void drawPiece(byte r, byte c, byte p){
 }
 /**
  * @brief Draws every chess piece on default location.
+ * @sa drawPiece
  */
 void drawEveryPiece(){
   for(byte k = 0; k < 2; ++k){
