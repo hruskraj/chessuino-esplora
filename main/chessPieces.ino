@@ -12,7 +12,7 @@
  * @param i piece you want to get
  * @param j position on y axis
  * @param k position on x axis
- * @return int representing value for RGB
+ * @return byte representing value of RGB
  * @sa chessPieces
  */
 byte getTableEntry(byte i, byte j, byte k){
