@@ -32,6 +32,15 @@ const Color lightColor = Color(255, 220, 145);
 const Color darkColor = Color(224, 155, 6);
 
 /**
+ * States of the program.
+ */
+enum states{
+  MENU_1, ///< Default menu.
+  MENU_2, ///< Opponent selection menu. 
+  GAME ///< Game.
+};
+
+/**
  * @brief Array of chess pieces
  * 
  * Every chess piece is represented by RGB value. All three parts
