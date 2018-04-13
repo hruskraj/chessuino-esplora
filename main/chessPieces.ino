@@ -68,7 +68,7 @@ void drawEveryPiece(){
  * 
  * @param r row
  * @param c column
- * @sa TileColor
+ * @sa Color
  */
 void removePiece(byte r, byte c){
   Color t = getTileColor(r, c);
@@ -113,3 +113,48 @@ void drawBoard(){
     light = !light;
   }
 }
+/**
+ * @brief Draws selector of specific color on given location.
+ * 
+ * @param cl color of the selector
+ * @param r row
+ * @param c column
+ * @sa Color
+ */
+void drawSelector(Color cl, byte r, byte c){
+  EsploraTFT.stroke(cl.r, cl.g, cl.b);
+  EsploraTFT.noFill();
+  EsploraTFT.rect(c * 16, r * 16, 16, 16);
+}
+/**
+ * @brief Removes selector from given location.
+ * 
+ * @param r row 
+ * @param c column
+ */
+void removeSelector(byte r, byte c){
+  Color t = getTileColor(r, c);
+  //raws selector of the same color as tile
+  drawSelector(t, r, c);
+}
+/**
+ * @brief Moves selector to new place.
+ * 
+ * @param r current row
+ * @param c current column
+ * @param new_r new row
+ * @param new_c new column
+ * @param cl color of the selector
+ * @sa Color
+ */
+void moveSelector(byte r, byte c, byte new_r, byte new_c, Color cl){
+  removeSelector(r, c);
+  drawSelector(cl, new_r, new_c);
+}
+
+
+
+
+
+
+
