@@ -1,3 +1,8 @@
+/**
+ * @file main.ino
+ * @brief Main file which includes setup and loop.
+ */
+
 #include <Esplora.h>
 #include <TFT.h>
 #include <SPI.h>
