@@ -121,7 +121,7 @@ void drawBoard(){
  * @param c column
  * @sa Color
  */
-void drawSelector(Color cl, byte r, byte c){
+void drawTileSelector(Color cl, byte r, byte c){
   EsploraTFT.stroke(cl.r, cl.g, cl.b);
   EsploraTFT.noFill();
   EsploraTFT.rect(c * 16, r * 16, 16, 16);
@@ -132,10 +132,10 @@ void drawSelector(Color cl, byte r, byte c){
  * @param r row 
  * @param c column
  */
-void removeSelector(byte r, byte c){
+void removeTileSelector(byte r, byte c){
   Color t = getTileColor(r, c);
   //raws selector of the same color as tile
-  drawSelector(t, r, c);
+  drawTileSelector(t, r, c);
 }
 /**
  * @brief Moves selector to new place.
@@ -147,9 +147,9 @@ void removeSelector(byte r, byte c){
  * @param cl color of the selector
  * @sa Color
  */
-void moveSelector(byte r, byte c, byte new_r, byte new_c, Color cl){
-  removeSelector(r, c);
-  drawSelector(cl, new_r, new_c);
+void moveTileSelector(byte r, byte c, byte new_r, byte new_c, Color cl){
+  removeTileSelector(r, c);
+  drawTileSelector(cl, new_r, new_c);
 }
 
 
