@@ -23,9 +23,9 @@ byte getTableEntry(byte i, byte j, byte k){
  * 
  * @param r row
  * @param c column
- * @return TileColor color
+ * @return Color color
  */
-const TileColor & getTileColor(int r, int c){
+const Color & getTileColor(int r, int c){
   return (r + c) % 2 == 0 ? lightColor : darkColor;  
 }
 /**
@@ -71,7 +71,7 @@ void drawEveryPiece(){
  * @sa TileColor
  */
 void removePiece(byte r, byte c){
-  TileColor t = getTileColor(r, c);
+  Color t = getTileColor(r, c);
   EsploraTFT.fill(t.r, t.g, t.b);
   EsploraTFT.noStroke();
   EsploraTFT.rect(c * 16, r * 16, 16, 16);

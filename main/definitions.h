@@ -4,12 +4,12 @@
  */
 
 /**
- * @struct TileColor
+ * @struct Color
  * @brief Simple structure representating color.
  * 
  * Every color is defined by RGB values.
  */
-struct TileColor{
+struct Color{
   ///red
   byte r;
   ///green 
@@ -23,13 +23,13 @@ struct TileColor{
    * @param g green
    * @param b blue
    */
-  TileColor(byte r, byte g, byte b) : r(r), g(g), b(b){};
+  Color(byte r, byte g, byte b) : r(r), g(g), b(b){};
 };
 
 ///Light color.
-const TileColor lightColor = TileColor(255, 220, 145);
+const Color lightColor = Color(255, 220, 145);
 ///Dark color.
-const TileColor darkColor = TileColor(224, 155, 6);
+const Color darkColor = Color(224, 155, 6);
 
 /**
  * @brief Array of chess pieces
