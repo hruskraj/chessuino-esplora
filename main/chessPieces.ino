@@ -64,6 +64,33 @@ void drawEveryPiece(){
   }
 }
 /**
+ * @brief Removes chess piece at given location.
+ * 
+ * @param r row
+ * @param c column
+ * @sa TileColor
+ */
+void removePiece(byte r, byte c){
+  TileColor t = getTileColor(r, c);
+  EsploraTFT.fill(t.r, t.g, t.b);
+  EsploraTFT.noStroke();
+  EsploraTFT.rect(c * 16, r * 16, 16, 16);
+}
+/**
+ * @brief Moves given piece to new place.
+ * 
+ * @param r current row
+ * @param c current column
+ * @param new_r new row
+ * @param new_c new column
+ * @param p piece to be moved
+ * @sa removePiece, drawPiece
+ */
+void movePiece(byte r, byte c, byte new_r, byte new_c, byte p){
+  removePiece(r, c);
+  drawPiece(new_r, new_c, p);
+}
+/**
  * @brief Draws chessboard.
  * 
  * Chessboard size is 8x8 squares. Every square is 16 
