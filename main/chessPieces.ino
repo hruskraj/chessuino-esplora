@@ -41,7 +41,7 @@ void drawPiece(byte r, byte c, byte p){
       if(t == noColor)
         continue;   
       EsploraTFT.stroke(t, t, t);
-      EsploraTFT.point(r * 16 + i, c * 16 + j);
+      EsploraTFT.point(c * 16 + i, r * 16 + j);
     }
   }
 }
