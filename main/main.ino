@@ -21,9 +21,6 @@ enum states NEXT_STATE;
  */
 void setup(){
   EsploraTFT.begin();
-  EsploraTFT.background(0, 0, 0);
-  /*drawBoard();
-  drawEveryPiece();*/
   STATE = NEXT_STATE = MENU_NEW_GAME;
   menu1Init();
 }

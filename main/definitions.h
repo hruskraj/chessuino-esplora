@@ -30,6 +30,8 @@ struct Color{
 const Color lightColor = Color(255, 220, 145);
 ///Dark color.
 const Color darkColor = Color(224, 155, 6);
+///Blue color.
+const Color blueColor = Color(0, 0, 255);
 
 /**
  * States of the program.
