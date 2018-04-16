@@ -117,14 +117,14 @@ void loop(){
 
     case MENU_VS_AI_HARD:
       if(buttonPressed(SWITCH_1)){
-        NEXT_STATE = MENU_VS_AI_EASY;
+        NEXT_STATE = MENU_VS_PLAYER;
         menu2MoveSelector(NEXT_STATE);
       }
       if(buttonPressed(SWITCH_2)){
         
       }
       if(buttonPressed(SWITCH_3)){
-        NEXT_STATE = MENU_VS_PLAYER;
+        NEXT_STATE = MENU_VS_AI_EASY;
         menu2MoveSelector(NEXT_STATE);
       }
       if(buttonPressed(SWITCH_4)){

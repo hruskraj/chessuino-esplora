@@ -17,11 +17,13 @@
 void menu1Init(){
   EsploraTFT.background(255,255,255);
   EsploraTFT.stroke(0,0,0);
-  EsploraTFT.text("NEW GAME", 50, 60);
-  EsploraTFT.text("CONTROLS", 50, 80);
-  EsploraTFT.text("ABOUT", 50, 100);
+  EsploraTFT.setTextSize(2);
+  EsploraTFT.text("NEW GAME", 32, 30);
+  EsploraTFT.text("CONTROLS", 32, 60);
+  EsploraTFT.text("ABOUT", 50, 90);
   //selector
-  EsploraTFT.text(">", 30, 60);
+  EsploraTFT.text(">", 15, 30);
+  EsploraTFT.text("<", 132, 30);
 }
 /**
  * @brief Moves menu selector.
@@ -31,16 +33,25 @@ void menu1Init(){
  */
 void menu1MoveSelector(enum states to){
   EsploraTFT.noStroke();
-  EsploraTFT.fill(255,255,255);
-  EsploraTFT.rect(30, 60, 20, 60);
+  EsploraTFT.fill(255, 255, 255);
+  EsploraTFT.rect(15, 30, 15, 45);
+  EsploraTFT.rect(132, 30, 15, 45);
+  EsploraTFT.rect(32, 90, 15, 15);
+  EsploraTFT.rect(115, 90, 15, 15);
   EsploraTFT.stroke(0,0,0);
 
-  if(to == MENU_NEW_GAME)
-    EsploraTFT.text(">", 30, 60);
-  else if(to == MENU_CONTROLS)
-    EsploraTFT.text(">", 30, 80);
-  else
-    EsploraTFT.text(">", 30, 100);
+  if(to == MENU_NEW_GAME){
+    EsploraTFT.text(">", 15, 30);
+    EsploraTFT.text("<", 132, 30);
+  }
+  else if(to == MENU_CONTROLS){
+    EsploraTFT.text(">", 15, 60);
+    EsploraTFT.text("<", 132, 60);
+  }
+  else{
+    EsploraTFT.text(">", 32, 90);
+    EsploraTFT.text("<", 115, 90);
+  }
 }
  /**
   * @brief Initialize opponent selection menu.
@@ -56,10 +67,12 @@ void menu1MoveSelector(enum states to){
 void menu2Init(){
   EsploraTFT.background(255,255,255);
   EsploraTFT.stroke(0,0,0);
-  EsploraTFT.text("VS PLAYER", 50, 60);
-  EsploraTFT.text("VS EASY AI", 50, 80);
-  EsploraTFT.text("VS HARD AI", 50, 100);
-  EsploraTFT.text(">", 30, 60);
+  EsploraTFT.text("VS PLAYER", 27, 30);
+  EsploraTFT.text("VS EASY AI", 22, 60);
+  EsploraTFT.text("VS HARD AI", 22, 90);
+  //selector
+  EsploraTFT.text(">", 10, 30);
+  EsploraTFT.text("<", 137, 30);
 }
 /**
  * @brief Moves menu selector.
@@ -69,15 +82,24 @@ void menu2Init(){
  */
 void menu2MoveSelector(enum states to){
   EsploraTFT.noStroke();
-  EsploraTFT.fill(255,255,255);
-  EsploraTFT.rect(30, 60, 20, 60);
+  EsploraTFT.fill(255, 255, 255);
+  EsploraTFT.rect(10, 30, 15, 15);
+  EsploraTFT.rect(137, 30, 15, 15);
+  EsploraTFT.rect(7, 60, 12, 45);
+  EsploraTFT.rect(142, 60, 12, 45);
   EsploraTFT.stroke(0,0,0);
 
-  if(to == MENU_VS_PLAYER)
-    EsploraTFT.text(">", 30, 60);
-  else if(to == MENU_VS_AI_EASY)
-    EsploraTFT.text(">", 30, 80);
-  else
-    EsploraTFT.text(">", 30, 100);
+  if(to == MENU_VS_PLAYER){
+    EsploraTFT.text(">", 10, 30);
+    EsploraTFT.text("<", 137, 30);
+  }
+  else if(to == MENU_VS_AI_EASY){
+    EsploraTFT.text(">", 7, 60);
+    EsploraTFT.text("<", 142, 60);
+  }
+  else{
+    EsploraTFT.text(">", 7, 90);
+    EsploraTFT.text("<", 142, 90);
+  }
 }
 
