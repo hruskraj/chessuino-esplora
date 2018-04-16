@@ -35,59 +35,60 @@ void setup(){
 void loop(){
   switch(STATE){
     case MENU_NEW_GAME:
-      if(buttonPressed(SWITCH_2)){
+      if(buttonPressed(SWITCH_1)){
         NEXT_STATE = MENU_VS_PLAYER;
         menu2Init();
       }
-      if(buttonPressed(SWITCH_1)){
+      if(joystickIs(joystickDown)){
         NEXT_STATE = MENU_CONTROLS;
         menu1MoveSelector(NEXT_STATE);
       }
-      if(buttonPressed(SWITCH_3)){
+      if(joystickIs(joystickUp)){
         NEXT_STATE = MENU_ABOUT;
         menu1MoveSelector(NEXT_STATE);
       }
       break;
       
     case MENU_CONTROLS:
-      if(buttonPressed(SWITCH_2)){
-        NEXT_STATE = CONTROLS;
+      if(buttonPressed(SWITCH_1)){
+        //NEXT_STATE = CONTROLS;
         //controlsInit();
       }
-      if(buttonPressed(SWITCH_1)){
+      if(joystickIs(joystickDown)){
         NEXT_STATE = MENU_ABOUT;
         menu1MoveSelector(NEXT_STATE);
       }
-      if(buttonPressed(SWITCH_3)){
+      if(joystickIs(joystickUp)){
         NEXT_STATE = MENU_NEW_GAME;
         menu1MoveSelector(NEXT_STATE);
       }
       break;
       
     case MENU_ABOUT:
-      if(buttonPressed(SWITCH_2)){
-        NEXT_STATE = ABOUT;
+      if(buttonPressed(SWITCH_1)){
+        //NEXT_STATE = ABOUT;
         //aboutInit();
       }
-      if(buttonPressed(SWITCH_1)){
+      if(joystickIs(joystickDown)){
         NEXT_STATE = MENU_NEW_GAME;
         menu1MoveSelector(NEXT_STATE);
       }
-      if(buttonPressed(SWITCH_3)){
+      if(joystickIs(joystickUp)){
         NEXT_STATE = MENU_CONTROLS;
         menu1MoveSelector(NEXT_STATE);
       }
       break;
 
     case MENU_VS_PLAYER:
-      if(buttonPressed(SWITCH_1)){
+      if(joystickIs(joystickDown)){
         NEXT_STATE = MENU_VS_AI_EASY;
         menu2MoveSelector(NEXT_STATE);
       }
-      if(buttonPressed(SWITCH_2)){
-        
+      if(buttonPressed(SWITCH_1)){
+        NEXT_STATE = GAME;
+        gameInit();
       }
-      if(buttonPressed(SWITCH_3)){
+      if(joystickIs(joystickUp)){
         NEXT_STATE = MENU_VS_AI_HARD;
         menu2MoveSelector(NEXT_STATE);
       }
@@ -98,14 +99,15 @@ void loop(){
       break;
       
     case MENU_VS_AI_EASY:
-      if(buttonPressed(SWITCH_1)){
+      if(joystickIs(joystickDown)){
         NEXT_STATE = MENU_VS_AI_HARD;
         menu2MoveSelector(NEXT_STATE);
       }
-      if(buttonPressed(SWITCH_2)){
-
+      if(buttonPressed(SWITCH_1)){
+        NEXT_STATE = GAME;
+        gameInit();
       }
-      if(buttonPressed(SWITCH_3)){
+      if(joystickIs(joystickUp)){
         NEXT_STATE = MENU_VS_PLAYER;
         menu2MoveSelector(NEXT_STATE);
       }
@@ -116,17 +118,26 @@ void loop(){
       break;
 
     case MENU_VS_AI_HARD:
-      if(buttonPressed(SWITCH_1)){
+      if(joystickIs(joystickDown)){
         NEXT_STATE = MENU_VS_PLAYER;
         menu2MoveSelector(NEXT_STATE);
       }
-      if(buttonPressed(SWITCH_2)){
-        
+      if(buttonPressed(SWITCH_1)){
+        NEXT_STATE = GAME;
+        gameInit();
       }
-      if(buttonPressed(SWITCH_3)){
+      if(joystickIs(joystickUp)){
         NEXT_STATE = MENU_VS_AI_EASY;
         menu2MoveSelector(NEXT_STATE);
       }
+      if(buttonPressed(SWITCH_4)){
+        NEXT_STATE = MENU_NEW_GAME;
+        menu1Init();
+      }
+      break;
+
+    case GAME:
+      gameUpdate();
       if(buttonPressed(SWITCH_4)){
         NEXT_STATE = MENU_NEW_GAME;
         menu1Init();
