@@ -21,11 +21,11 @@ bool flags [4] = {true, true, true, true};
  * then joystick is in the center.
  */
 const int treshold = 100;
+/**
+ * How much time has passed since last event.
+ */
+unsigned long joystickTime = 0;
 
-int joystickRight = 0, ///< Absolute value of the position of the joystick on x axis
-    joystickLeft = 0, ///< Absolute value of the position of the joystick on x axis
-    joystickUp = 0, ///< Absolute value of the position of the joystick on y axis
-    joystickDown = 0; ///< Absolute value of the position of the joystick on y axis
 /**
  * @brief Tests whether given button is pressed.
  * 
@@ -67,8 +67,31 @@ bool buttonPressed(int btn){
 void readJoystick(){
   int x = Esplora.readJoystickX();
   int y = Esplora.readJoystickY();
-  joystickRight = (x > treshold) ? x : 0;
-  joystickLeft = (x > -1 * treshold) ? (-1 * x) : 0;
-  joystickUp = (y > treshold) ? x : 0;
-  joystickDown = (y > -1 * treshold) ? (-1 * x) : 0;
+  joystickRight = (x < -1 * treshold) ? (-1 * x) : 0;
+  joystickLeft = (x > treshold) ? x : 0;
+  joystickDown = (y > treshold) ? y : 0;
+  joystickUp = (y < -1 * treshold) ? (-1 * y) : 0;
 }
+
+
+//100a + b = 1000 ; 512a + b = 250 // N
+/**
+ * Calculates time stamp depending on joystick position.
+ */
+unsigned long superFunction(int x){
+  return (-1.82039 * x + 1182.04);
+}
+
+/**
+ * TBA.
+ */
+bool joystickIs(int where){
+  readJoystick();
+  if(where > 100 && millis() - joystickTime > superFunction(where)){
+    joystickTime = millis();
+    return true;
+  }
+  return false;
+}
+
+

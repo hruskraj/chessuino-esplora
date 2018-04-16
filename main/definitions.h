@@ -83,3 +83,8 @@ const PROGMEM byte chessPieces[12][16][16] = {{{202, 202, 202, 202, 202, 202, 20
 ///Value for no color.
 const byte noColor = 202;
 
+int joystickRight = 0, ///< Absolute value of the position of the joystick on x axis
+    joystickLeft = 0, ///< Absolute value of the position of the joystick on x axis
+    joystickUp = 0, ///< Absolute value of the position of the joystick on y axis
+    joystickDown = 0; ///< Absolute value of the position of the joystick on y axis
+
