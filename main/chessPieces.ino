@@ -48,19 +48,35 @@ void drawPiece(byte r, byte c, byte p){
   }
 }
 /**
+   @brief Fills chessboard with pieces at default location
+*/
+void fillBoard(){
+  for(byte i = 0; i < 8; ++i)
+    for(byte j = 0; j < 8; ++j)
+      board[i][j] = 255;
+      
+  for(byte k = 0; k < 2; ++k){
+    for(byte i = 0; i < 3; ++i){
+      board[0 + k * 7][i] = i + k * 6;
+      board[0 + k * 7][7 - i] = i + k * 6;
+    }
+    board[0 + k * 7][3] = 3 + k * 6;
+    board[0 + k * 7][4] = 4 + k * 6;
+    for(byte i = 0; i < 8; ++i)
+      board[1 + k * 5][i] = 5 + k * 6;
+  }
+}
+/**
  * @brief Draws every chess piece on default location.
  * @sa drawPiece
  */
 void drawEveryPiece(){
-  for(byte k = 0; k < 2; ++k){
-    for(byte i = 0; i < 3; ++i){
-      drawPiece(0 + k * 7, i, i + k * 6);
-      drawPiece(0 + k * 7, 7 - i, i + k * 6);
+  for(byte i = 0; i < 8; ++i){
+    for(byte j = 0; j < 8; ++j){
+      if(board[i][j] == 255)
+        continue;
+      drawPiece(i, j, board[i][j]);  
     }
-    drawPiece(0 + k * 7, 3, 3 + k * 6);
-    drawPiece(0 + k * 7, 4, 4 + k * 6);
-    for(byte i = 0; i < 8; ++i)
-      drawPiece(1 + k * 5, i, 5 + k * 6);
   }
 }
 /**
@@ -151,10 +167,3 @@ void moveTileSelector(byte r, byte c, byte new_r, byte new_c, Color cl){
   removeTileSelector(r, c);
   drawTileSelector(cl, new_r, new_c);
 }
-
-
-
-
-
-
-

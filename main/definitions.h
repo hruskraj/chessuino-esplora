@@ -90,3 +90,9 @@ int joystickRight = 0, ///< Absolute value of the position of the joystick on x 
     joystickUp = 0, ///< Absolute value of the position of the joystick on y axis
     joystickDown = 0; ///< Absolute value of the position of the joystick on y axis
 
+///Actual positions of chess pieces.
+byte board[8][8]; 
+
+///Indicates whose turn it is.
+bool whiteOnTurn;
+
