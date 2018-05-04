@@ -1,7 +1,5 @@
 ///TBA
-byte tileSelectorR;
-///TBA
-byte tileSelectorC;
+Coord tileSelector;
 /**
  * TBA
  */
@@ -9,27 +7,26 @@ void gameInit(){
   EsploraTFT.background(0, 0, 0);
   drawBoard();
   drawEveryPiece();
-  tileSelectorR = 4;
-  tileSelectorC = 3;
-  drawTileSelector(blueColor, tileSelectorR, tileSelectorC);
+  tileSelector.r = 4;
+  tileSelector.c = 3;
+  drawTileSelector(tileSelector, blueColor);
 }
 /**
  * TBA
  */
 void gameUpdate(){
-  byte tmpR = tileSelectorR;
-  byte tmpC = tileSelectorC;
+  Coord tmp = tileSelector;
   if(joystickIs(joystickLeft))
-    tileSelectorC = (8 + tileSelectorC - 1) % 8;
+    tileSelector.c = (8 + tileSelector.c - 1) % 8;
   if(joystickIs(joystickRight))
-    ++tileSelectorC %= 8;
+    ++tileSelector.c %= 8;
   if(joystickIs(joystickUp))
-    tileSelectorR = (8 + tileSelectorR - 1) % 8;
+    tileSelector.r = (8 + tileSelector.r - 1) % 8;
   if(joystickIs(joystickDown))
-    ++tileSelectorR %= 8;
+    ++tileSelector.r %= 8;
   //to remove blinking
-  if(tmpR != tileSelectorR || tmpC != tileSelectorC)
-    moveTileSelector(tmpR, tmpC, tileSelectorR, tileSelectorC, blueColor);
+  if(tmp != tileSelector)
+    moveTileSelector(tmp, tileSelector, blueColor);
 }
 
 

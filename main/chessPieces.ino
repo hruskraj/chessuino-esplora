@@ -21,34 +21,34 @@ byte getTableEntry(byte i, byte j, byte k){
 /**
  * @brief Get color of specific tile.
  * 
- * @param r row
- * @param c column
+ * @param co coordinates of row and column
  * @return Color color
+ * @sa Coord
  */
-const Color & getTileColor(int r, int c){
-  return (r + c) % 2 == 0 ? lightColor : darkColor;  
+const Color & getTileColor(const Coord & co){
+  return (co.r + co.c) % 2 == 0 ? lightColor : darkColor;  
 }
 /**
  * @brief Draws chess piece at given location.
  * 
- * @param r row
- * @param c column
+ * @param co coordinates of location
  * @param p piece
- * @sa chessPieces
+ * @sa chessPieces, Coord
  */
-void drawPiece(byte r, byte c, byte p){
+void drawPiece(const Coord & co, byte p){
   for(int i = 0; i < 16; ++i){
     for(int j = 0; j < 16; ++j){
       byte t = getTableEntry(p, i, j);
       if(t == noColor)
         continue;   
       EsploraTFT.stroke(t, t, t);
-      EsploraTFT.point(c * 16 + i, r * 16 + j);
+      EsploraTFT.point(co.c * 16 + i, co.r * 16 + j);
     }
   }
 }
 /**
-   @brief Fills chessboard with pieces at default location
+ * @brief Fills chessboard with pieces at default location.
+ * @sa board  
 */
 void fillBoard(){
   for(byte i = 0; i < 8; ++i)
@@ -75,36 +75,33 @@ void drawEveryPiece(){
     for(byte j = 0; j < 8; ++j){
       if(board[i][j] == 255)
         continue;
-      drawPiece(i, j, board[i][j]);  
+      drawPiece(Coord(i, j), board[i][j]);  
     }
   }
 }
 /**
  * @brief Removes chess piece at given location.
  * 
- * @param r row
- * @param c column
- * @sa Color
+ * @param co coordinates
+ * @sa Color, Coord
  */
-void removePiece(byte r, byte c){
-  Color t = getTileColor(r, c);
+void removePiece(const Coord & co){
+  Color t = getTileColor(co);
   EsploraTFT.fill(t.r, t.g, t.b);
   EsploraTFT.noStroke();
-  EsploraTFT.rect(c * 16, r * 16, 16, 16);
+  EsploraTFT.rect(co.c * 16, co.r * 16, 16, 16);
 }
 /**
  * @brief Moves given piece to new place.
  * 
- * @param r current row
- * @param c current column
- * @param new_r new row
- * @param new_c new column
+ * @param oldC coordinates of actual position of chess piece
+ * @param newC coordinates of new position
  * @param p piece to be moved
- * @sa removePiece, drawPiece
+ * @sa removePiece, drawPiece, Coord
  */
-void movePiece(byte r, byte c, byte new_r, byte new_c, byte p){
-  removePiece(r, c);
-  drawPiece(new_r, new_c, p);
+void movePiece(const Coord & oldC, const Coord & newC, byte p){
+  removePiece(oldC);
+  drawPiece(newC, p);
 }
 /**
  * @brief Draws chessboard.
@@ -132,38 +129,35 @@ void drawBoard(){
 /**
  * @brief Draws selector of specific color on given location.
  * 
+ * @param co coordinates
  * @param cl color of the selector
- * @param r row
- * @param c column
- * @sa Color
+ * @sa Color, Coord
  */
-void drawTileSelector(Color cl, byte r, byte c){
+void drawTileSelector(const Coord & co, const Color & cl){
   EsploraTFT.stroke(cl.r, cl.g, cl.b);
   EsploraTFT.noFill();
-  EsploraTFT.rect(c * 16, r * 16, 16, 16);
+  EsploraTFT.rect(co.c * 16, co.r * 16, 16, 16);
 }
 /**
  * @brief Removes selector from given location.
  * 
- * @param r row 
- * @param c column
+ * @param co coordinates
+ * @sa Coord
  */
-void removeTileSelector(byte r, byte c){
-  Color t = getTileColor(r, c);
-  //raws selector of the same color as tile
-  drawTileSelector(t, r, c);
+void removeTileSelector(const Coord & co){
+  Color t = getTileColor(co);
+  //draws selector of the same color as tile
+  drawTileSelector(co, t);
 }
 /**
  * @brief Moves selector to new place.
  * 
- * @param r current row
- * @param c current column
- * @param new_r new row
- * @param new_c new column
+ * @param oldC coordinates of current position
+ * @param newC coordinates of new position
  * @param cl color of the selector
- * @sa Color
+ * @sa Color, Coord
  */
-void moveTileSelector(byte r, byte c, byte new_r, byte new_c, Color cl){
-  removeTileSelector(r, c);
-  drawTileSelector(cl, new_r, new_c);
+void moveTileSelector(const Coord & oldC, const Coord & newC, Color cl){
+  removeTileSelector(oldC);
+  drawTileSelector(newC, cl);
 }

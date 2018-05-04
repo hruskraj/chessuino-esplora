@@ -25,6 +25,28 @@ struct Color{
    */
   Color(byte r, byte g, byte b) : r(r), g(g), b(b){};
 };
+/**
+ * @struct Coord
+ * @brief Simple structure representating coordinates for chessboard.
+ */
+struct Coord{
+  ///Row.
+  byte r;
+  ///Column
+  byte c;
+  ///Default constructor.
+  Coord() = default;
+  ///Constructor.
+  Coord(byte r, byte c) : r(r), c(c){};
+  /**
+   * @brief Compares two coordinates.
+   * 
+   * @return TBA
+   */
+  bool operator != (const Coord & other){
+    return r != other.r || c != other.c;
+  }
+};
 
 ///Light color.
 const Color lightColor = Color(255, 220, 145);
