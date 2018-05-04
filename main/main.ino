@@ -135,7 +135,7 @@ void loop(){
 
     case GAME:
       gameUpdate();
-      if(buttonPressed(SWITCH_4)){
+      if(buttonPressed(SWITCH_3)){
         NEXT_STATE = MENU_NEW_GAME;
         menu1Init();
       }
