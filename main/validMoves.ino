@@ -15,6 +15,7 @@
 bool isValidMove(byte fromR, byte fromC, byte toR, byte toC, byte piece){
   if((whiteOnTurn && board[toR][toC] >= 6 && board[toR][toC] < 12) || (!whiteOnTurn && board[toR][toC] < 6))
     return false;
+  bool validMove;
   switch(piece){
     case 0: case 6:
       return isValidMoveRook(fromR, fromC, toR, toC);
@@ -27,9 +28,17 @@ bool isValidMove(byte fromR, byte fromC, byte toR, byte toC, byte piece){
     case 4: case 10:
       return isValidMoveKing(fromR, fromC, toR, toC);
     case 5:
-      return isValidMoveBlackPawn(fromR, fromC, toR, toC);
+      validMove = isValidMoveBlackPawn(fromR, fromC, toR, toC);
+      if(validMove && toR == 0)
+        //promotion to queen
+        board[fromR][fromC] -= 2;
+      return validMove;
     case 11:
-      return isValidMoveWhitePawn(fromR, fromC, toR, toC);
+      validMove = isValidMoveWhitePawn(fromR, fromC, toR, toC);
+      if(validMove && toR == 7)
+        //promotion to queen
+        board[fromR][fromC] -= 2;
+      return validMove;
   }
   return false;
 }
