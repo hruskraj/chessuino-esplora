@@ -35,7 +35,7 @@ void updateSelector(){
   if(tmp != tileSelector){
     moveTileSelector(tmp, tileSelector, blueColor);
     //If selector was on selected location then previous command would erase selector.
-    drawTileSelector(tileSelector, blueColor);
+    drawTileSelector(tileSelected, blueColor);
   }
 }
 /**
