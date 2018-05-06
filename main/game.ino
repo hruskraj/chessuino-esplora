@@ -39,6 +39,23 @@ void updateSelector(){
   }
 }
 /**
+ * 
+ */
+void evaluateCastlingVars(byte r, byte c){
+  if(c == 7 && r == 7)
+    castlingVars[1] = false;
+  if(c == 4 && r == 7)
+    castlingVars[0] = false;
+  if(c == 0 && r == 7)
+    castlingVars[2] = false;
+  if(c == 7 && r == 0)
+    castlingVars[4] = false;
+  if(c == 4 && r == 0)
+    castlingVars[3] = false;
+  if(c == 0 && r == 0)
+    castlingVars[5] = false;
+}
+/**
  * TBA
  */
 void evaluateMove(){
@@ -52,6 +69,8 @@ void evaluateMove(){
       board[tileSelector.r][tileSelector.c] = board[tileSelected.r][tileSelected.c];
       board[tileSelected.r][tileSelected.c] = 255;
       whiteOnTurn = !whiteOnTurn;
+      evaluateCastlingVars(tileSelected.r, tileSelected.c);
+      evaluateCastlingVars(tileSelector.r, tileSelector.c);
     }
   }
   else{

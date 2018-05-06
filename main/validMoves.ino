@@ -14,11 +14,11 @@
  * @sa board, whiteOnTurn
  */
 bool isValidMove(byte fromR, byte fromC, byte toR, byte toC, byte piece){
-  bool validMove;
-  if((whiteOnTurn && board[toR][toC] >= 6 && board[toR][toC] < 12) || (!whiteOnTurn && board[toR][toC] < 6))
+  if(checkCheck(fromR, fromC, toR, toC))
     return false;
-    
-  if(checkCheck(board, fromR, fromC, toR, toC))
+  if(checkCastling(fromR, fromC, toR, toC))
+    return true;
+  if((whiteOnTurn && board[toR][toC] >= 6 && board[toR][toC] < 12) || (!whiteOnTurn && board[toR][toC] < 6))
     return false;
 
   bool legal = isLegalMove(fromR, fromC, toR, toC, piece);
@@ -50,14 +50,30 @@ bool isLegalMove(byte fromR, byte fromC, byte toR, byte toC, byte piece){
   }
 }
 
-bool checkCheck(byte b[8][8], byte fromR, byte fromC, byte toR, byte toC){
-  b[toR][toC] = b[fromR][fromC];
-  b[fromR][fromC] = 255;
-  byte kingR, kingC;
+bool checkCastling(byte fromR, byte fromC, byte toR, byte toC){
+  if(board[fromR][fromC] != 10 || board[toR][toC] != 6 || !castlingVars[0] ||
+     board[fromR][fromC] != 4 || board[toR][toC] != 0 || !castlingVars[3] || 
+     checkCheck(board, whiteOnTurn))
+    return false;
+  if(toC == 7 && ((whiteOnTurn && castlingVars[1]) || (!whiteOnTurn && castlingVars[4]))){
+    if(board[toR][5] != 255 || board[toR][6] != 255)
+      return false;
+    return true;
+  }
+    
+  if(toC == 0 && ((whiteOnTurn && castlingVars[2]) || (!whiteOnTurn && castlingVars[5]))){
+    if(board[toR][1] != 255 || board[toR][2] != 255 || board[toR][3] != 255)
+      return false;
+    return true;
+  }
+  return false;
+}
 
+bool checkCheck(const byte b[8][8], bool playerWhite){
+  byte kingR, kingC;
   for(byte i = 0; i < 8; ++i)
     for(byte j = 0; j < 8; ++j){
-      if((whiteOnTurn && b[i][j] == 10) || (!whiteOnTurn && b[i][j] == 4)){
+      if((playerWhite && b[i][j] == 10) || (!playerWhite && b[i][j] == 4)){
         kingR = i;
         kingC = j;
         break;
@@ -66,13 +82,21 @@ bool checkCheck(byte b[8][8], byte fromR, byte fromC, byte toR, byte toC){
 
   for(byte r = 0; r < 8; ++r)
     for(byte c = 0; c < 8; ++c){
-      if(((whiteOnTurn && b[r][c] <= 5) ||
-        (!whiteOnTurn && b[r][c] > 5 && b[r][c] <= 11))
+      if(((playerWhite && b[r][c] <= 5) ||
+        (!playerWhite && b[r][c] > 5 && b[r][c] <= 11))
          && (isLegalMove(r, c, kingR, kingC, b[r][c])))
         return true;
     }
-  
-  return false;
+}
+
+bool checkCheck(byte fromR, byte fromC, byte toR, byte toC){
+  byte b[8][8];
+  for(byte i = 0; i < 8; ++i)
+    for(byte j = 0; j < 8; ++j)
+      b[i][j] = board[i][j];
+  b[toR][toC] = b[fromR][fromC];
+  b[fromR][fromC] = 255;
+  return checkCheck(b, whiteOnTurn);
 }
 
 bool isValidMoveRook(byte fromR, byte fromC, byte toR, byte toC){

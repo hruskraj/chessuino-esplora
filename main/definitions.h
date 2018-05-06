@@ -118,3 +118,6 @@ byte board[8][8];
 ///Indicates whose turn it is.
 bool whiteOnTurn;
 
+///TBA
+bool castlingVars[6] = {true, true, true, true, true, true};
+
