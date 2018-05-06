@@ -88,6 +88,9 @@ void evaluateMove(){
       whiteOnTurn = !whiteOnTurn;
       evaluateCastlingVars(tileSelected.r, tileSelected.c);
       evaluateCastlingVars(tileSelector.r, tileSelector.c);
+      if(!hasAnyMove()){
+        //ENDGAME
+      }
     }
   }
   else{

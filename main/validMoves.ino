@@ -50,6 +50,19 @@ bool isLegalMove(byte fromR, byte fromC, byte toR, byte toC, byte piece){
   }
 }
 
+bool hasAnyMove(){
+  for(byte r = 0; r < 8; ++r)
+    for(byte c = 0; c < 8; ++c)
+      if((whiteOnTurn && board[r][c] >= 6 && board[r][c] < 12) || (!whiteOnTurn && board[r][c] < 6))
+        for(byte toR = 0; toR < 8; ++toR)
+          for(byte toC = 0; toC < 8; ++toC)
+            if(!checkCheck(r, c, toR, toC) && 
+               !((whiteOnTurn && board[toR][toC] >= 6 && board[toR][toC] < 12) || (!whiteOnTurn && board[toR][toC] < 6)) &&
+               isLegalMove(r, c, toR, toC, board[r][c]))
+              return true;
+  return false;
+}
+
 bool checkCastling(byte fromR, byte fromC, byte toR, byte toC){
   if(board[fromR][fromC] != 10 || board[toR][toC] != 6 || !castlingVars[0] ||
      board[fromR][fromC] != 4 || board[toR][toC] != 0 || !castlingVars[3] || 
