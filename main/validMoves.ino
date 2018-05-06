@@ -9,13 +9,29 @@
  * @param fromC current column
  * @param toR new row
  * @param toC new column
+ * @param piece piece which is being moved
  * @return true if is valid move
  * @sa board, whiteOnTurn
  */
 bool isValidMove(byte fromR, byte fromC, byte toR, byte toC, byte piece){
+  bool validMove;
   if((whiteOnTurn && board[toR][toC] >= 6 && board[toR][toC] < 12) || (!whiteOnTurn && board[toR][toC] < 6))
     return false;
-  bool validMove;
+    
+  if(checkCheck(board, fromR, fromC, toR, toC))
+    return false;
+
+  bool legal = isLegalMove(fromR, fromC, toR, toC, piece);
+  //promotion to queen
+  if(piece == 5 && legal && toR == 0)
+    board[fromR][fromC] -= 2;
+  if(piece == 11 && legal && toR == 7)
+    board[fromR][fromC] -= 2;
+    
+  return legal;
+}
+
+bool isLegalMove(byte fromR, byte fromC, byte toR, byte toC, byte piece){
   switch(piece){
     case 0: case 6:
       return isValidMoveRook(fromR, fromC, toR, toC);
@@ -28,18 +44,34 @@ bool isValidMove(byte fromR, byte fromC, byte toR, byte toC, byte piece){
     case 4: case 10:
       return isValidMoveKing(fromR, fromC, toR, toC);
     case 5:
-      validMove = isValidMoveBlackPawn(fromR, fromC, toR, toC);
-      if(validMove && toR == 0)
-        //promotion to queen
-        board[fromR][fromC] -= 2;
-      return validMove;
+      return isValidMoveBlackPawn(fromR, fromC, toR, toC);
     case 11:
-      validMove = isValidMoveWhitePawn(fromR, fromC, toR, toC);
-      if(validMove && toR == 7)
-        //promotion to queen
-        board[fromR][fromC] -= 2;
-      return validMove;
+      return isValidMoveWhitePawn(fromR, fromC, toR, toC);
   }
+}
+
+bool checkCheck(byte b[8][8], byte fromR, byte fromC, byte toR, byte toC){
+  b[toR][toC] = b[fromR][fromC];
+  b[fromR][fromC] = 255;
+  byte kingR, kingC;
+
+  for(byte i = 0; i < 8; ++i)
+    for(byte j = 0; j < 8; ++j){
+      if((whiteOnTurn && b[i][j] == 10) || (!whiteOnTurn && b[i][j] == 4)){
+        kingR = i;
+        kingC = j;
+        break;
+      }
+    }
+
+  for(byte r = 0; r < 8; ++r)
+    for(byte c = 0; c < 8; ++c){
+      if(((whiteOnTurn && b[r][c] <= 5) ||
+        (!whiteOnTurn && b[r][c] > 5 && b[r][c] <= 11))
+         && (isLegalMove(r, c, kingR, kingC, b[r][c])))
+        return true;
+    }
+  
   return false;
 }
 
