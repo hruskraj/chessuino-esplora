@@ -60,14 +60,26 @@ void evaluateCastlingVars(byte r, byte c){
  */
 void evaluateMove(){
   if(tileIsSelected && tileSelected != tileSelector){
-    if(isValidMove(tileSelected.r, tileSelected.c, tileSelector.r, tileSelector.c, board[tileSelected.r][tileSelected.c])){
+    bool castl = false;
+    if(isValidMove(tileSelected.r, tileSelected.c, tileSelector.r, tileSelector.c, board[tileSelected.r][tileSelected.c], castl)){
+      if(castl){
+        if(tileSelector.c == 7){
+          board[tileSelector.r][6] = board[tileSelector.r][tileSelector.c];
+          movePiece(tileSelector, Coord(tileSelector.r, 6), board[tileSelector.r][7]);
+        }
+        else{
+          board[tileSelector.r][1] = board[tileSelector.r][tileSelector.c];
+          movePiece(tileSelector, Coord(tileSelector.r, 1), board[tileSelector.r][0]);
+        }
+      }
       removeTileSelector(tileSelected);
       removePiece(tileSelector);
+      board[tileSelector.r][tileSelector.c] = board[tileSelected.r][tileSelected.c];
+      board[tileSelected.r][tileSelected.c] = 255;
       drawTileSelector(tileSelector, blueColor);
       movePiece(tileSelected, tileSelector, board[tileSelected.r][tileSelected.c]);
       tileIsSelected = false;
-      board[tileSelector.r][tileSelector.c] = board[tileSelected.r][tileSelected.c];
-      board[tileSelected.r][tileSelected.c] = 255;
+      
       whiteOnTurn = !whiteOnTurn;
       evaluateCastlingVars(tileSelected.r, tileSelected.c);
       evaluateCastlingVars(tileSelector.r, tileSelector.c);

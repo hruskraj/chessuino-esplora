@@ -13,10 +13,10 @@
  * @return true if is valid move
  * @sa board, whiteOnTurn
  */
-bool isValidMove(byte fromR, byte fromC, byte toR, byte toC, byte piece){
+bool isValidMove(byte fromR, byte fromC, byte toR, byte toC, byte piece, bool & castlingHappened){
   if(checkCheck(fromR, fromC, toR, toC))
     return false;
-  if(checkCastling(fromR, fromC, toR, toC))
+  if(castlingHappened = checkCastling(fromR, fromC, toR, toC))
     return true;
   if((whiteOnTurn && board[toR][toC] >= 6 && board[toR][toC] < 12) || (!whiteOnTurn && board[toR][toC] < 6))
     return false;
