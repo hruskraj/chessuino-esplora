@@ -114,10 +114,11 @@ int joystickRight = 0, ///< Absolute value of the position of the joystick on x 
 
 ///Actual positions of chess pieces.
 byte board[8][8]; 
-
 ///Indicates whose turn it is.
 bool whiteOnTurn;
-
 ///TBA
 bool castlingVars[6] = {true, true, true, true, true, true};
-
+///TBA
+bool AIEnabled = false;
+///TBA
+bool AIDifficultyEasy = true;

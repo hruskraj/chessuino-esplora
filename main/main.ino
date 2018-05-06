@@ -21,6 +21,7 @@ enum states NEXT_STATE;
  */
 void setup(){
   EsploraTFT.begin();
+  randomSeed(analogRead(0));
   STATE = NEXT_STATE = MENU_NEW_GAME;
   menu1Init();
 }
@@ -102,6 +103,7 @@ void loop(){
       }
       if(buttonPressed(SWITCH_1)){
         NEXT_STATE = GAME;
+        AIInit(true);
         gameInit();
       }
       if(joystickIs(joystickUp)){
@@ -121,6 +123,7 @@ void loop(){
       }
       if(buttonPressed(SWITCH_1)){
         NEXT_STATE = GAME;
+        AIInit(false);
         gameInit();
       }
       if(joystickIs(joystickUp)){

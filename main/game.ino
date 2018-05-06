@@ -106,13 +106,19 @@ void evaluateMove(){
  * TBA
  */
 void gameUpdate(){
-  updateSelector();
+  if(AIEnabled && !whiteOnTurn){
+    AIMakeTurn(tileSelected, tileSelector);
+    evaluateMove();
+  }
+  else
+    updateSelector();
   if(buttonPressed(SWITCH_1))
     evaluateMove();
   if(buttonPressed(SWITCH_4)){
     if(tileSelected != tileSelector)
       removeTileSelector(tileSelected);
     tileIsSelected = false;
+    AIEnabled = false;
   }
 }
 
