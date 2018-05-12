@@ -18,8 +18,6 @@ bool isValidMove(byte fromR, byte fromC, byte toR, byte toC, byte piece, bool & 
     return false;
   if(castlingHappened = checkCastling(fromR, fromC, toR, toC))
     return true;
-  if((whiteOnTurn && board[toR][toC] >= 6 && board[toR][toC] < 12) || (!whiteOnTurn && board[toR][toC] < 6))
-    return false;
 
   bool legal = isLegalMove(fromR, fromC, toR, toC, piece);
   //promotion to queen
@@ -32,6 +30,10 @@ bool isValidMove(byte fromR, byte fromC, byte toR, byte toC, byte piece, bool & 
 }
 
 bool isLegalMove(byte fromR, byte fromC, byte toR, byte toC, byte piece){
+  if(checkCheck(fromR, fromC, toR, toC))
+    return false;
+  if((whiteOnTurn && board[toR][toC] >= 6 && board[toR][toC] < 12) || (!whiteOnTurn && board[toR][toC] < 6))
+    return false;
   switch(piece){
     case 0: case 6:
       return isValidMoveRook(fromR, fromC, toR, toC);

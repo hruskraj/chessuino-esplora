@@ -86,9 +86,11 @@ void evaluateMove(){
         movePiece(tileSelected, tileSelector, board[tileSelected.r][tileSelected.c]);
         board[tileSelector.r][tileSelector.c] = board[tileSelected.r][tileSelected.c];
       }
-      removeTileSelector(tileSelected);
+      if(!AIEnabled){
+        removeTileSelector(tileSelected);
+        drawTileSelector(tileSelector, blueColor);
+      }
       board[tileSelected.r][tileSelected.c] = 255;
-      drawTileSelector(tileSelector, blueColor);
       
       tileIsSelected = false;
       
