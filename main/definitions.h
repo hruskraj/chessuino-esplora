@@ -1,13 +1,13 @@
 /**
  * @file definitions.h
- * @brief Definitions of constants.
+ * @brief Definitions of constants and structures.
  */
 
 /**
  * @struct Color
- * @brief Simple structure representating color.
+ * @brief Structure representating color.
  * 
- * Every color is defined by RGB values.
+ * Every color is defined as RGB color model.
  */
 struct Color{
   ///red
@@ -27,21 +27,27 @@ struct Color{
 };
 /**
  * @struct Coord
- * @brief Simple structure representating coordinates for chessboard.
+ * @brief Structure representating coordinates for chessboard.
  */
 struct Coord{
-  ///Row.
+  ///row
   byte r;
-  ///Column
+  ///column
   byte c;
   ///Default constructor.
   Coord() = default;
-  ///Constructor.
+  /**
+   * @brief Constructor.
+   * 
+   * @param r row
+   * @param c column
+   */
   Coord(byte r, byte c) : r(r), c(c){};
   /**
    * @brief Compares two coordinates.
    * 
-   * @return TBA
+   * @param other Coordinates to be compared
+   * @return true if coordinates have different values, false otherwise
    */
   bool operator != (const Coord & other){
     return r != other.r || c != other.c;
@@ -71,10 +77,12 @@ enum states{
 };
 
 /**
- * @brief Array of chess pieces
+ * @brief Array of chess pieces.
  * 
- * Every chess piece is represented by RGB value. All three parts
- * of the RGB are the same. 202 is used to indicate that there is no color.
+ * Every tile of chessboard is 16x16 pixels. 
+ * Every chess piece is represented by color of the pixel. All three parts (r, g, b)
+ * of the RGB are the same. 202 is used to indicate that there is no color 
+ * (so default color of the tile should be used).
  * <table>
  *   <tr> <th>index</th> <th>piece</th> </tr>
  *   <tr> <td>0</td> <td>black rook</td> </tr>
@@ -116,7 +124,22 @@ int joystickRight = 0, ///< Absolute value of the position of the joystick on x 
 byte board[8][8]; 
 ///Indicates whose turn it is.
 bool whiteOnTurn;
-///TBA
+/**
+ * @brief Variables used for castling.
+ * 
+ * Castling is allowed only once per a game. One of the requirements of the castling is that 
+ * neither king nor rook have moved from their location. This array stores information 
+ * whether they moved or not. 
+ * <table>
+ * <tr><th>index</th> <th>piece</th></tr>
+ * <tr><td>0</td> <td>White king</td></tr>
+ * <tr><td>1</td> <td>White right rook</td></tr>
+ * <tr><td>2</td> <td>White left rook</td></tr>
+ * <tr><td>3</td> <td>Black king</td></tr>
+ * <tr><td>4</td> <td>Black right rook</td></tr>
+ * <tr><td>5</td> <td>Black left rook</td></tr>
+ * </table>
+ */
 bool castlingVars[6] = {true, true, true, true, true, true};
-///TBA
+///AI enabled
 bool AIEnabled = false;
