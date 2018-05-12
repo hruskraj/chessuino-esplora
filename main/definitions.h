@@ -63,8 +63,7 @@ enum states{
   MENU_CONTROLS, ///< Menu selection of controls
   MENU_ABOUT, ///< Menu selection of about
   MENU_VS_PLAYER, ///< Menu selection of vs player
-  MENU_VS_AI_EASY, ///< Menu selection of vs easy AI
-  MENU_VS_AI_HARD, ///< Menu selection of vs hard AI
+  MENU_VS_AI, ///< Menu selection of vs AI
   CONTROLS, ///< Controls
   ABOUT, ///< About
   GAME ///< Game
@@ -120,5 +119,3 @@ bool whiteOnTurn;
 bool castlingVars[6] = {true, true, true, true, true, true};
 ///TBA
 bool AIEnabled = false;
-///TBA
-bool AIDifficultyEasy = true;

@@ -1,9 +1,8 @@
 /**
  * TBA
  */
-void AIInit(bool difficulty){
+void AIInit(){
   AIEnabled = true;
-  AIDifficultyEasy = difficulty;
 }
 /**
  * TBA
@@ -26,12 +25,7 @@ void AIMakeSimpleMove(Coord & from, Coord & to){
  * TBA
  */
 void AIMakeTurn(Coord & from, Coord & to){
-  if(AIDifficultyEasy)
-    AIMakeSimpleMove(from, to);
-  else{
-    AIMakeSimpleMove(from, to);
-  }
-    
+  AIMakeSimpleMove(from, to);    
 }
 
 

@@ -79,7 +79,7 @@ void loop(){
 
     case MENU_VS_PLAYER:
       if(joystickIs(joystickDown)){
-        NEXT_STATE = MENU_VS_AI_EASY;
+        NEXT_STATE = MENU_VS_AI;
         menu2MoveSelector(NEXT_STATE);
       }
       if(buttonPressed(SWITCH_1)){
@@ -87,7 +87,7 @@ void loop(){
         gameInit();
       }
       if(joystickIs(joystickUp)){
-        NEXT_STATE = MENU_VS_AI_HARD;
+        NEXT_STATE = MENU_VS_AI;
         menu2MoveSelector(NEXT_STATE);
       }
       if(buttonPressed(SWITCH_4)){
@@ -96,38 +96,18 @@ void loop(){
       }
       break;
       
-    case MENU_VS_AI_EASY:
-      if(joystickIs(joystickDown)){
-        NEXT_STATE = MENU_VS_AI_HARD;
-        menu2MoveSelector(NEXT_STATE);
-      }
-      if(buttonPressed(SWITCH_1)){
-        NEXT_STATE = GAME;
-        AIInit(true);
-        gameInit();
-      }
-      if(joystickIs(joystickUp)){
-        NEXT_STATE = MENU_VS_PLAYER;
-        menu2MoveSelector(NEXT_STATE);
-      }
-      if(buttonPressed(SWITCH_4)){
-        NEXT_STATE = MENU_NEW_GAME;
-        menu1Init();
-      }
-      break;
-
-    case MENU_VS_AI_HARD:
+    case MENU_VS_AI:
       if(joystickIs(joystickDown)){
         NEXT_STATE = MENU_VS_PLAYER;
         menu2MoveSelector(NEXT_STATE);
       }
       if(buttonPressed(SWITCH_1)){
         NEXT_STATE = GAME;
-        AIInit(false);
+        AIInit();
         gameInit();
       }
       if(joystickIs(joystickUp)){
-        NEXT_STATE = MENU_VS_AI_EASY;
+        NEXT_STATE = MENU_VS_PLAYER;
         menu2MoveSelector(NEXT_STATE);
       }
       if(buttonPressed(SWITCH_4)){
