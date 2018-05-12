@@ -49,8 +49,8 @@ void loop(){
       
     case MENU_CONTROLS:
       if(buttonPressed(SWITCH_1)){
-        //NEXT_STATE = CONTROLS;
-        //controlsInit();
+        NEXT_STATE = CONTROLS;
+        controlsInit();
       }
       if(joystickIs(joystickDown)){
         NEXT_STATE = MENU_ABOUT;
@@ -115,6 +115,12 @@ void loop(){
         menu1Init();
       }
       break;
+
+    case CONTROLS:
+      if(buttonPressed(SWITCH_4)){
+        NEXT_STATE = MENU_NEW_GAME;
+        menu1Init();
+      }
 
     case GAME:
       gameUpdate();
