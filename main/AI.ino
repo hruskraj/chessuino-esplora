@@ -13,8 +13,7 @@ void AIMakeSimpleMove(Coord & from, Coord & to){
   byte b = random(0, 7);
   byte c = random(0, 7);
   byte d = random(0, 7);
-  bool castling;
-  while(!isValidMove(a, b, c, d, board[a][b], castling)){
+  while(!isLegalMove(a, b, c, d, board[a][b])){
     a = random(0, 7);
     b = random(0, 7);
     c = random(0, 7);

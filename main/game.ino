@@ -17,6 +17,8 @@ void gameInit(){
   tileIsSelected = false;
   whiteOnTurn = true;
   drawTileSelector(tileSelector, blueColor);
+  for(byte i = 0; i < 6; ++i)
+    castlingVars[i] = true;
 }
 /**
  * TBA
@@ -35,7 +37,8 @@ void updateSelector(){
   if(tmp != tileSelector){
     moveTileSelector(tmp, tileSelector, blueColor);
     //If selector was on selected location then previous command would erase selector.
-    drawTileSelector(tileSelected, blueColor);
+    if(tileIsSelected)
+      drawTileSelector(tileSelected, blueColor);
   }
 }
 /**
@@ -65,19 +68,23 @@ void evaluateMove(){
       if(castl){
         if(tileSelector.c == 7){
           board[tileSelector.r][5] = board[tileSelector.r][7];
+          board[tileSelector.r][6] = board[tileSelected.r][tileSelected.c];
           movePiece(tileSelector, Coord(tileSelector.r, 5), board[tileSelector.r][7]);
           movePiece(tileSelected, Coord(tileSelector.r, 6), board[tileSelector.r][4]);
         }
         else{
           board[tileSelector.r][3] = board[tileSelector.r][0];
+          board[tileSelector.r][2] = board[tileSelected.r][tileSelected.c];
           movePiece(tileSelector, Coord(tileSelector.r, 3), board[tileSelector.r][0]);
           movePiece(tileSelected, Coord(tileSelector.r, 2), board[tileSelector.r][4]);
         }
+        board[tileSelector.r][tileSelector.c] = 255;
+        board[tileSelected.r][tileSelected.c] = 255;
       }
       else{
-        board[tileSelector.r][tileSelector.c] = board[tileSelected.r][tileSelected.c];
-        movePiece(tileSelected, tileSelector, board[tileSelected.r][tileSelected.c]);
         removePiece(tileSelector);
+        movePiece(tileSelected, tileSelector, board[tileSelected.r][tileSelected.c]);
+        board[tileSelector.r][tileSelector.c] = board[tileSelected.r][tileSelected.c];
       }
       removeTileSelector(tileSelected);
       board[tileSelected.r][tileSelected.c] = 255;
@@ -88,9 +95,9 @@ void evaluateMove(){
       whiteOnTurn = !whiteOnTurn;
       evaluateCastlingVars(tileSelected.r, tileSelected.c);
       evaluateCastlingVars(tileSelector.r, tileSelector.c);
-      if(!hasAnyMove()){
+      /*if(!hasAnyMove()){
         //ENDGAME
-      }
+      }*/
     }
   }
   else{
@@ -108,6 +115,7 @@ void evaluateMove(){
 void gameUpdate(){
   if(AIEnabled && !whiteOnTurn){
     AIMakeTurn(tileSelected, tileSelector);
+    tileIsSelected = true;
     evaluateMove();
   }
   else
