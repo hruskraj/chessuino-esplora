@@ -4,7 +4,8 @@ Semestral project for BI-ARD. Chess on Arduino Esplora.
 
 ## Prerequisities
 
-Arduino IDE
+* Arduino IDE
+* Arduino Esplora
 
 ## Upload
 
