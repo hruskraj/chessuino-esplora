@@ -66,7 +66,8 @@ enum states{
   MENU_VS_AI, ///< Menu selection of vs AI
   CONTROLS, ///< Controls
   ABOUT, ///< About
-  GAME ///< Game
+  GAME, ///< Game
+  END ///< End
 };
 
 /**

@@ -123,6 +123,13 @@ void loop(){
         menu1Init();
       }
       break;
+      
+    case END:
+      endInit();
+      if(buttonPressed(SWITCH_3)){
+        NEXT_STATE = MENU_NEW_GAME;
+        menu1Init();
+      }
     
   }
   STATE = NEXT_STATE;
