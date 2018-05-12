@@ -2,7 +2,6 @@
  * @file chessPieces.ino
  * @brief File contaning functions related to chess pieces.
  */
-
 /**
  * @brief Get value from chess pieces array.
  * 
@@ -12,7 +11,7 @@
  * @param i piece you want to get
  * @param j position on y axis
  * @param k position on x axis
- * @return byte representing value of RGB
+ * @return byte representing channel of RGB
  * @sa chessPieces
  */
 byte getTableEntry(byte i, byte j, byte k){
@@ -36,7 +35,7 @@ const Color & getTileColor(const Coord & co){
  * @sa chessPieces, Coord
  */
 void drawPiece(const Coord & co, byte p){
-  for(int i = 0; i < 16; ++i){
+  for(int i = 0; i < 16; ++i)
     for(int j = 0; j < 16; ++j){
       byte t = getTableEntry(p, i, j);
       if(t == noColor)
@@ -44,7 +43,6 @@ void drawPiece(const Coord & co, byte p){
       EsploraTFT.stroke(t, t, t);
       EsploraTFT.point(co.c * 16 + i, co.r * 16 + j);
     }
-  }
 }
 /**
  * @brief Fills chessboard with pieces at default location.
@@ -94,7 +92,7 @@ void removePiece(const Coord & co){
 /**
  * @brief Moves given piece to new place.
  * 
- * @param oldC coordinates of actual position of chess piece
+ * @param oldC coordinates of current position of chess piece
  * @param newC coordinates of new position
  * @param p piece to be moved
  * @sa removePiece, drawPiece, Coord

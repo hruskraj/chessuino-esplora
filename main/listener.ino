@@ -3,7 +3,7 @@
  * @brief Reads input data.
  */
  
-/// Array of buttons.
+///Array of buttons.
 const int btns [4] = {SWITCH_1, SWITCH_2, SWITCH_3, SWITCH_4};
 /**
  * @brief Array of button flags. 
@@ -12,7 +12,6 @@ const int btns [4] = {SWITCH_1, SWITCH_2, SWITCH_3, SWITCH_4};
  * the last push.
  */
 bool flags [4] = {true, true, true, true};
-
 /**
  * @brief Treshold for joystick.
  * 
@@ -25,14 +24,14 @@ const int treshold = 100;
  * How much time has passed since last event.
  */
 unsigned long joystickTime = 0;
-
 /**
  * @brief Tests whether given button is pressed.
  * 
  * Action will occur on press not on release. Function returns
  * true only if button was released before the press.
  * @param btn button to be tested
- * @return true if pressed, otherwise false
+ * @return true if pressed 
+ * @return false otherwise
  * @sa btns, flags
  */
 bool buttonPressed(int btn){
@@ -57,7 +56,6 @@ bool buttonPressed(int btn){
   //given button does not exist
   return false;
 }
-
 /**
  * @brief Reads position of joystick.
  * 
@@ -72,26 +70,32 @@ void readJoystick(){
   joystickDown = (y > treshold) ? y : 0;
   joystickUp = (y < -1 * treshold) ? (-1 * y) : 0;
 }
-
-
 //100a + b = 1000 ; 512a + b = 250 // N
 /**
- * Calculates time stamp depending on joystick position.
+ * @brief Calculates time stamp depending on joystick position.
+ * 
+ * This is linear function solving equations 100a + b = 1000 ; 512a + b = 250. 
+ * When joystick is at position 100 then time stamp is 1000 ms and when joystick
+ * is at position 512 then time stamp is 250 ms.
  */
-unsigned long superFunction(int x){
+unsigned long calculateTimeStamp(int x){
   return (-1.82039 * x + 1182.04);
 }
-
 /**
- * TBA.
+ * @brief Tests whether joystick is moved.
+ * 
+ * Certain amount of time must pass so that joystick is 'again' on side.
+ * 
+ * @param where which side is joystick moved to
+ * @return true if joystick is moved to the side and enough time has passed
+ * @return false otherwise
+ * @sa calculateTimeStamp
  */
 bool joystickIs(int where){
   readJoystick();
-  if(where > 100 && millis() - joystickTime > superFunction(where)){
+  if(where > treshold && millis() - joystickTime > calculateTimeStamp(where)){
     joystickTime = millis();
     return true;
   }
   return false;
 }
-
-

@@ -1,11 +1,23 @@
-///TBA
+/**
+ * @file game.ino
+ * @brief File containing game controlling functions. 
+ */
+/**
+ * @brief Coordinates of tile selector.
+ * @sa Coord
+ */
 Coord tileSelector;
-///TBA
+/**
+ * @brief Coordinates of selected tile.
+ * @sa Coord
+ */
 Coord tileSelected;
-///TBA
+///Determines if any tile is selected.
 bool tileIsSelected;
 /**
- * TBA
+ * @brief Initialization of game.
+ * 
+ * Fills board with pieces, draws board, draws pieces. Sets variables.
  */
 void gameInit(){
   EsploraTFT.background(0, 0, 0);
@@ -21,7 +33,10 @@ void gameInit(){
     castlingVars[i] = true;
 }
 /**
- * TBA
+ * @brief Updates tile selector.
+ * 
+ * Checks joystick and moves tile selector accordingly. 
+ * @sa joystickIs
  */
 void updateSelector(){
   Coord tmp = tileSelector;
@@ -33,16 +48,18 @@ void updateSelector(){
     tileSelector.r = (8 + tileSelector.r - 1) % 8;
   if(joystickIs(joystickDown))
     ++tileSelector.r %= 8;
-  //Draw only if coordinates changed to remove blinking.
+  //draw only if coordinates changed to remove blinking
   if(tmp != tileSelector){
     moveTileSelector(tmp, tileSelector, blueColor);
-    //If selector was on selected location then previous command would erase selector.
+    //if selector was on selected location then previous command would erase selector
     if(tileIsSelected)
       drawTileSelector(tileSelected, blueColor);
   }
 }
 /**
+ * @brief Evaluate castling variables. 
  * 
+ * @sa castlingVars
  */
 void evaluateCastlingVars(byte r, byte c){
   if(c == 7 && r == 7)
@@ -59,28 +76,34 @@ void evaluateCastlingVars(byte r, byte c){
     castlingVars[5] = false;
 }
 /**
- * TBA
+ * @brief Evaluate castling.
+ */
+void evaluateCastling(){
+  if(tileSelector.c == 7){
+    board[tileSelector.r][5] = board[tileSelector.r][7];
+    board[tileSelector.r][6] = board[tileSelected.r][tileSelected.c];
+    movePiece(tileSelector, Coord(tileSelector.r, 5), board[tileSelector.r][7]);
+    movePiece(tileSelected, Coord(tileSelector.r, 6), board[tileSelector.r][4]);
+  }
+  else{
+    board[tileSelector.r][3] = board[tileSelector.r][0];
+    board[tileSelector.r][2] = board[tileSelected.r][tileSelected.c];
+    movePiece(tileSelector, Coord(tileSelector.r, 3), board[tileSelector.r][0]);
+    movePiece(tileSelected, Coord(tileSelector.r, 2), board[tileSelector.r][4]);
+  }
+  board[tileSelector.r][tileSelector.c] = 255;
+  board[tileSelected.r][tileSelected.c] = 255;
+}
+/**
+ * @brief Evaluate move.
+ * 
  */
 void evaluateMove(){
   if(tileIsSelected && tileSelected != tileSelector){
     bool castl = false;
     if(isValidMove(tileSelected.r, tileSelected.c, tileSelector.r, tileSelector.c, board[tileSelected.r][tileSelected.c], castl)){
-      if(castl){
-        if(tileSelector.c == 7){
-          board[tileSelector.r][5] = board[tileSelector.r][7];
-          board[tileSelector.r][6] = board[tileSelected.r][tileSelected.c];
-          movePiece(tileSelector, Coord(tileSelector.r, 5), board[tileSelector.r][7]);
-          movePiece(tileSelected, Coord(tileSelector.r, 6), board[tileSelector.r][4]);
-        }
-        else{
-          board[tileSelector.r][3] = board[tileSelector.r][0];
-          board[tileSelector.r][2] = board[tileSelected.r][tileSelected.c];
-          movePiece(tileSelector, Coord(tileSelector.r, 3), board[tileSelector.r][0]);
-          movePiece(tileSelected, Coord(tileSelector.r, 2), board[tileSelector.r][4]);
-        }
-        board[tileSelector.r][tileSelector.c] = 255;
-        board[tileSelected.r][tileSelected.c] = 255;
-      }
+      if(castl)
+        evaluateCastling();
       else{
         removePiece(tileSelector);
         movePiece(tileSelected, tileSelector, board[tileSelected.r][tileSelected.c]);
@@ -113,7 +136,7 @@ void evaluateMove(){
   }
 }
 /**
- * TBA
+ * @brief Game loop.
  */
 void gameUpdate(){
   if(AIEnabled && !whiteOnTurn){

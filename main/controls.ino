@@ -1,3 +1,10 @@
+/**
+ * @file controls.ino
+ * @brief Information about contols.
+ */
+/**
+ * @brief Writes information about controls.
+ */
 void controlsInit(){
   EsploraTFT.background(255,255,255);
   EsploraTFT.stroke(0,0,0);

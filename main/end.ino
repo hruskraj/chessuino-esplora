@@ -2,6 +2,9 @@
  * @file end.ino
  * @brief Information about winner.
  */
+/**
+ * @brief Writes information about winner.
+ */
 void endInit(){
   EsploraTFT.background(255,255,255);
   EsploraTFT.stroke(0,0,0);

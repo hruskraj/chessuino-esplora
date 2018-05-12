@@ -2,12 +2,11 @@
  * @file menu.ino
  * @brief Menu functions.
  */
-
  /**
   * @brief Initialize default menu.
   * 
   * Background of the menu is white. Menu consists of three options.
-  * <table >
+  * <table>
   * <tr> <th>Option</th> </tr>
   * <tr> <td>New game</td> </tr>
   * <tr> <td>Controls</td> </tr>
@@ -56,8 +55,8 @@ void menu1MoveSelector(enum states to){
  /**
   * @brief Initialize opponent selection menu.
   * 
-  * Background of the menu is white. Menu consists of three options.
-  * <table >
+  * Background of the menu is white. Menu consists of two options.
+  * <table>
   * <tr> <th>Option</th> </tr>
   * <tr> <td>VS player</td> </tr>
   * <tr> <td>VS easy AI</td> </tr>

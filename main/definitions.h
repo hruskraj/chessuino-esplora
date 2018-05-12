@@ -2,10 +2,9 @@
  * @file definitions.h
  * @brief Definitions of constants and structures.
  */
-
 /**
  * @struct Color
- * @brief Structure representating color.
+ * @brief Structure representing color.
  * 
  * Every color is defined as RGB color model.
  */
@@ -27,7 +26,7 @@ struct Color{
 };
 /**
  * @struct Coord
- * @brief Structure representating coordinates for chessboard.
+ * @brief Structure representing coordinates for chessboard.
  */
 struct Coord{
   ///row
@@ -46,8 +45,9 @@ struct Coord{
   /**
    * @brief Compares two coordinates.
    * 
-   * @param other Coordinates to be compared
-   * @return true if coordinates have different values, false otherwise
+   * @param other Coord to be compared
+   * @return true if coordinates have different values 
+   * @return false otherwise
    */
   bool operator != (const Coord & other){
     return r != other.r || c != other.c;
@@ -120,7 +120,11 @@ int joystickRight = 0, ///< Absolute value of the position of the joystick on x 
     joystickUp = 0, ///< Absolute value of the position of the joystick on y axis
     joystickDown = 0; ///< Absolute value of the position of the joystick on y axis
 
-///Actual positions of chess pieces.
+/**
+ * @brief Actual positions of chess pieces.
+ * 
+ * Value 255 is used for empty tile.
+ */
 byte board[8][8]; 
 ///Indicates whose turn it is.
 bool whiteOnTurn;
