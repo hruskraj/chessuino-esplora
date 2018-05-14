@@ -49,7 +49,7 @@ void AIMakeTurn(Coord & from, Coord & to){
   byte c = random(0, 8);
   byte d = random(0, 8);
   int counter = 0;
-  while(!isLegalMove(a, b, c, d, board[a][b], whiteOnTurn) && counter <= 500){
+  while(!isLegalMove(a, b, c, d, board[a][b], whiteOnTurn) && counter <= 100){
     a = random(0, 8);
     b = random(0, 8);
     c = random(0, 8);

@@ -10,8 +10,9 @@ void endInit(){
   EsploraTFT.stroke(0,0,0);
   EsploraTFT.setTextSize(3);
   if(whiteOnTurn)
-    EsploraTFT.text("BLACK wins!", 10, 10);
+    EsploraTFT.text("BLACK", 35, 30);
   else
-    EsploraTFT.text("WHITE wins!", 10, 10);
+    EsploraTFT.text("WHITE", 35, 30);
+  EsploraTFT.text("wins!", 38, 60);
 }
 

@@ -132,15 +132,15 @@ void loop(){
 
     case GAME:
       gameUpdate();
-      if(buttonPressed(SWITCH_4)){
+      if(buttonPressed(SWITCH_3)){
         NEXT_STATE = MENU_NEW_GAME;
+        AIEnabled = false;
         menu1Init();
       }
       break;
       
     case END:
-      endInit();
-      if(buttonPressed(SWITCH_3)){
+      if(buttonPressed(SWITCH_4)){
         NEXT_STATE = MENU_NEW_GAME;
         menu1Init();
       }

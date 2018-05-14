@@ -21,9 +21,8 @@ bool isValidMove(byte fromR, byte fromC, byte toR, byte toC, byte piece, bool & 
   //if castling happened then this is valid move
   if(castlingHappened = checkCastling(fromR, fromC, toR, toC))
     return true;
-
   bool legal = isLegalMove(fromR, fromC, toR, toC, piece, whiteOnTurn);
-  //promotion to queen
+  ///promotion to queen
   if(piece == 5 && legal && toR == 7)
     board[fromR][fromC] -= 2;
   if(piece == 11 && legal && toR == 0)
@@ -44,7 +43,7 @@ bool isValidMove(byte fromR, byte fromC, byte toR, byte toC, byte piece, bool & 
  * @sa board, whiteOnTurn
  */
 bool isLegalMove(byte fromR, byte fromC, byte toR, byte toC, byte piece, bool playerWhite){
-  if(checkCheck(fromR, fromC, toR, toC))
+  if((playerWhite && board[fromR][fromC] < 6) || (!playerWhite && board[fromR][fromC] >= 6))
     return false;
   if((playerWhite && board[toR][toC] >= 6 && board[toR][toC] < 12) || (!playerWhite && board[toR][toC] < 6))
     return false;
@@ -78,8 +77,9 @@ bool hasAnyMove(){
       if((whiteOnTurn && board[r][c] >= 6 && board[r][c] < 12) || (!whiteOnTurn && board[r][c] < 6))
         for(byte toR = 0; toR < 8; ++toR)
           for(byte toC = 0; toC < 8; ++toC)
-            if(isLegalMove(r, c, toR, toC, board[r][c], whiteOnTurn))
+            if(isLegalMove(r, c, toR, toC, board[r][c], whiteOnTurn) && !checkCheck(r, c, toR, toC)){
               return true;
+            }
   return false;
 }
 /**
@@ -316,9 +316,9 @@ bool isValidMoveWhitePawn(byte fromR, byte fromC, byte toR, byte toC){
     return true;
   if(fromC != toC)
     return false;
-  if(fromR == 6 && toR == 4 && board[5][fromC] == 255)
+  if(fromR == 6 && toR == 4 && board[5][fromC] == 255  && board[4][fromC] == 255)
     return true;
-  if(fromR - toR == 1)
+  if(fromR - toR == 1 && board[toR][toC] == 255)
     return true;
   return false;
 }
@@ -340,9 +340,9 @@ bool isValidMoveBlackPawn(byte fromR, byte fromC, byte toR, byte toC){
     return true;
   if(fromC != toC)
     return false;
-  if(fromR == 1 && toR == 3 && board[2][fromC] == 255)
+  if(fromR == 1 && toR == 3 && board[2][fromC] == 255 && board[3][fromC] == 255)
     return true;
-  if(toR - fromR == 1)
+  if(toR - fromR == 1 && board[toR][toC] == 255)
     return true;
   return false;
 }

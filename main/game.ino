@@ -116,12 +116,13 @@ void evaluateMove(){
       board[tileSelected.r][tileSelected.c] = 255;
       
       tileIsSelected = false;
-      
+
       whiteOnTurn = !whiteOnTurn;
       evaluateCastlingVars(tileSelected.r, tileSelected.c);
       evaluateCastlingVars(tileSelector.r, tileSelector.c);
       if(!hasAnyMove()){
         NEXT_STATE = END;
+        endInit();
         AIEnabled = false;
       }
     }
@@ -139,20 +140,20 @@ void evaluateMove(){
  * @brief Game loop.
  */
 void gameUpdate(){
+  Coord tmp = tileSelector;
   if(AIEnabled && !whiteOnTurn){
     AIMakeTurn(tileSelected, tileSelector);
     tileIsSelected = true;
     evaluateMove();
+    tileSelector = tmp;
   }
-  else
-    updateSelector();
+  updateSelector();
   if(buttonPressed(SWITCH_1))
     evaluateMove();
-  if(buttonPressed(SWITCH_4)){
+  if(buttonPressed(SWITCH_4) && !(AIEnabled && !whiteOnTurn)){
     if(tileSelected != tileSelector)
       removeTileSelector(tileSelected);
     tileIsSelected = false;
-    AIEnabled = false;
   }
 }
 
